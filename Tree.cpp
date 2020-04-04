@@ -6,17 +6,20 @@
  * */
 #include "Node.h"
 #include <iostream>
+#include <string>
+#include <vector>
 using namespace std;
 
 int main(){
 string nameOfNewNode ="root";
-Node * root = new Node::Node(&nameOfNewNode); 
-nameOfNewNode="leftChild";
-Node * leftchild = new Node::Node(&nameOfNewNode); 
-nameOfNewNode="rightChild";
-Node * rightchild = new Node::Node(&nameOfNewNode);
 
-root->addChild(leftchild);
-root->addChild(rightchild);
-cout << root->getChild(0)->getName() << endl;
+Node * treeRoot = new Node(&nameOfNewNode); 
+nameOfNewNode="leftChild";
+Node * leftchild = new Node(&nameOfNewNode); 
+nameOfNewNode="rightChild";
+Node * rightchild = new Node(&nameOfNewNode);
+
+treeRoot->addChild(leftchild);
+treeRoot->addChild(rightchild);
+cout << treeRoot->getChild(0)->getName() << endl;
 }
