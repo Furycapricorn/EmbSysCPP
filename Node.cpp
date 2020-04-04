@@ -15,6 +15,7 @@
 * #Konstruktor Type const std::string&  
 * #destruktor delete
 * #getName(name) const
+* setName
 * #getNrOfChildren()  
 * #getChild(i)
 * #addChild(child)
