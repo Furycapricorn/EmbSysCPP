@@ -25,6 +25,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+using namespace std;
 
 
 //this is needed to keep track of the nodes and is used for the searching
@@ -37,8 +38,11 @@ Node::Node(const std::string* constructString){
 Node::~Node(){
     
     //this calls the deconstructor of the children 
-    for(;getNumberOfChildren()>0;){
-        delete getChild(getNumberOfChildren()-1);
+    for(;this->getNumberOfChildren()>0;){
+        cout << "Trying to delete CHild" << endl;
+        cout << this->getNumberOfChildren();
+        cout << this->getChild(this->getNumberOfChildren()-1)->getName() << endl;
+        delete this->getChild(this->getNumberOfChildren()-1);
     }
 
 }
@@ -52,12 +56,14 @@ int Node::getNumberOfChildren(){
 }
 //
 Node* Node::getChild(int childIndex){
-    int i = getNumberOfChildren();
-    if (i> childIndex || i<0)
+    int i = this->getNumberOfChildren();
+    if (i< childIndex || childIndex < 0)
     {
-        throw "ChildIndex out of range!";
+        cout << "ChildIndex out of range!" << endl;
+        //throw "ChildIndex out of range!";
         return NULL;
     }else{
+        cout << "Trying to find CHild" << endl;
         return this->listOfChildren[childIndex];
     }
 }
