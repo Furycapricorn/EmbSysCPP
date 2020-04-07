@@ -36,34 +36,64 @@ Node::Node(const std::string* constructString){
     Node::nodeName= *constructString;
 }
 Node::~Node(){
-    
+    cout << "------------Trying to delete " << this->nodeName <<  endl;
     //this calls the deconstructor of the children 
     for(;this->getNumberOfChildren()>0;){
-        cout << "Trying to delete CHild" << endl;
-        cout << this->getNumberOfChildren();
-        cout << this->getChild(this->getNumberOfChildren()-1)->getName() << endl;
-        delete this->getChild(this->getNumberOfChildren()-1);
+        
+        int i = this->getNumberOfChildren()-1;
+        if(this->getChild(i)!= NULL){
+            
+            cout <<"deleting:----" << endl;
+            cout  << this->getChild(i)->getName() << endl;
+            cout <<"deleting: now"<< endl;
+            delete this->getChild(i);
+            listOfChildren[i] = NULL; 
+            /*This is necessary because 
+            in the vector there is still a pointer to NULL and 
+            that confuses my getNumberOFChildren() method!*/
+        }else
+        {
+            cout <<"Child NULL"<< endl;
+        }
+        
+        
     }
+    cout <<":::::: Finish: " << this->nodeName << endl;
 
 }
 //
 std::string Node::getName() const{
+    cout << "getting Node Name" << endl;
     return this->nodeName;
 }
-//
+//  NEEDS TO COUNT THE REAL CHILDREN AND NOT JUST THE SIZE OF THE VECTOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 int Node::getNumberOfChildren(){
-    return this->listOfChildren.size();
+    int c=0;
+    cout << "getting number of children" << endl;
+
+    for(int i= 0; i < this->listOfChildren.size(); i++){
+        if(listOfChildren[i] != NULL){
+            cout << listOfChildren[i]<<endl;
+            c=c+1;
+        }else{
+            cout << "Child to Count = Null" <<endl;
+        }
+    }
+    cout << c << endl;
+    return c;
 }
 //
 Node* Node::getChild(int childIndex){
     int i = this->getNumberOfChildren();
-    if (i< childIndex || childIndex < 0)
+    if (i< childIndex || childIndex < 0 || i==0)
     {
         cout << "ChildIndex out of range!" << endl;
         //throw "ChildIndex out of range!";
         return NULL;
     }else{
-        cout << "Trying to find CHild" << endl;
+        cout << "Trying to find Child" << endl;
+        cout << childIndex << endl;
+        cout << this->listOfChildren[childIndex]->getName() << endl;
         return this->listOfChildren[childIndex];
     }
 }
