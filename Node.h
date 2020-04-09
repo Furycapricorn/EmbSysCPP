@@ -3,15 +3,9 @@
 #include <string>
 #include <vector>
 
-/*
-* To:Do
-* Konstruktor Type const std::string&  
-* destruktor delete
-* getName(name) const 
-* getNrOfChildren() 
-* getChild(i)
-* addChild(child)
-*/
+#define DEBUG
+//Debug more is for percise debugging
+//#define DEBUG_MORE
 
 class Node{
     private:

@@ -36,16 +36,17 @@ Node::Node(const std::string* constructString){
     Node::nodeName= *constructString;
 }
 Node::~Node(){
-    cout << "------------Trying to delete " << this->nodeName <<  endl;
+    #ifdef DEBUG
+    cout << "Enter ~Node() of " << this->nodeName <<  endl;
+    #endif
     //this calls the deconstructor of the children 
     for(;this->getNumberOfChildren()>0;){
         
         int i = this->getNumberOfChildren()-1;
         if(this->getChild(i)!= NULL){
-            
-            cout <<"deleting:----" << endl;
-            cout  << this->getChild(i)->getName() << endl;
-            cout <<"deleting: now"<< endl;
+            #ifdef DEBUG_MORE
+            cout <<"Deleting Child: "<< this->getChild(i)->getName()<< endl;
+            #endif
             delete this->getChild(i);
             listOfChildren[i] = NULL; 
             /*This is necessary because 
@@ -53,33 +54,52 @@ Node::~Node(){
             that confuses my getNumberOFChildren() method!*/
         }else
         {
-            cout <<"Child NULL"<< endl;
+            #ifdef DEBUG_MORE
+            cout <<"Child was NULL"<< endl;
+            #endif
         }
         
         
     }
-    cout <<":::::: Finish: " << this->nodeName << endl;
+    #ifdef DEBUG
+    cout <<"Leaving ~Node() of:  " << this->nodeName << endl;
+    #endif
 
 }
 //
 std::string Node::getName() const{
-    cout << "getting Node Name" << endl;
     return this->nodeName;
 }
+//
+void Node::setName(std::string* newNamePointer){
+    this-> nodeName = *newNamePointer;
+    #ifdef DEBUG_MORE
+    cout << this->nodeName <<endl;
+    #endif
+}
+
 //  NEEDS TO COUNT THE REAL CHILDREN AND NOT JUST THE SIZE OF THE VECTOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 int Node::getNumberOfChildren(){
     int c=0;
-    cout << "getting number of children" << endl;
+    #ifdef DEBUG_MORE
+    cout << "Counting number of children" << endl;
+    #endif
 
     for(int i= 0; i < this->listOfChildren.size(); i++){
         if(listOfChildren[i] != NULL){
-            cout << listOfChildren[i]<<endl;
+            #ifdef DEBUG_MORE
+            cout <<"Counted Child" << listOfChildren[i]<<endl;
+            #endif
             c=c+1;
         }else{
-            cout << "Child to Count = Null" <<endl;
+            #ifdef DEBUG_MORE
+            cout << "Child to Count = NULL" <<endl;
+            #endif
         }
     }
+    #ifdef DEBUG_MORE
     cout << c << endl;
+    #endif
     return c;
 }
 //
@@ -87,13 +107,17 @@ Node* Node::getChild(int childIndex){
     int i = this->getNumberOfChildren();
     if (i< childIndex || childIndex < 0 || i==0)
     {
+        #ifdef DEBUG_MORE
         cout << "ChildIndex out of range!" << endl;
         //throw "ChildIndex out of range!";
+        #endif
         return NULL;
     }else{
+        #ifdef DEBUG_MORE
         cout << "Trying to find Child" << endl;
         cout << childIndex << endl;
         cout << this->listOfChildren[childIndex]->getName() << endl;
+        #endif
         return this->listOfChildren[childIndex];
     }
 }
