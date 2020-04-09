@@ -19,6 +19,7 @@ using namespace std;
 
 //this is needed to keep track of the nodes and is used for the searching
 int Node::nodeId =0;
+
 Node::Node(){
     Node::nodeId++;
     std::stringstream generatedName;
@@ -130,14 +131,19 @@ Node* Node::createCompleteTree(int nrChildNodes,int treeDepth){
     if(nrChildNodes <=0 || treeDepth <=0){
         throw "Index out of Bounce: Cant have 0 or less childnodes/treedepth!";
     }else if (treeDepth >1){
+        #ifdef DEBUG_MORE
         cout <<"Entering: " << this->getName() << endl;
-            for(int j = 0; j<nrChildNodes; j++){
-                Node * newNode =new Node();
-                cout <<"Creating Child For: " << this->getName() << endl;
-                this->addChild(Node::createCompleteTree(nrChildNodes ,treeDepth-1));
-                
-            }
+        #endif
+        for(int j = 0; j<nrChildNodes; j++){
+            Node * newNode =new Node();
+            #ifdef DEBUG_MORE
+            cout <<"Creating Child For: " << this->getName() << endl;
+            #endif
+            this->addChild(Node::createCompleteTree(nrChildNodes ,treeDepth-1));        
+        }
+        #ifdef DEBUG_MORE
         cout <<"Leaving: " << this->getName() << endl;
+        #endif
     }
     return this;
 }

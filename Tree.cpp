@@ -42,13 +42,14 @@ To better understand what i mean by that, check out the deconstructor.jpg in the
 }
 
 
-string nameOfNewNode ="root";
+nameOfNewNode ="root";
 
-Node * treeRoot = new Node(&nameOfNewNode); 
+Node * tree = new Node(&nameOfNewNode); 
 try
-{
-    treeRoot->Node::createCompleteTree(2,4);
-    treeRoot->Node::createCompleteTree(-1,2);
+{   cout << "This creates a complete ree at once tree" <<endl;
+    tree->Node::createCompleteTree(2,4);
+    cout << "this will fail" <<endl;
+    tree->Node::createCompleteTree(-1,2);
 }
 catch(const char* msg)
 {
