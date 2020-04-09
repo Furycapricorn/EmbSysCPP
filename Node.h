@@ -13,6 +13,7 @@ class Node{
     std::vector<Node*> listOfChildren;
     static int nodeId;
     public:
+    Node();
     Node(const std::string* pointerToName);
     ~Node();
     std::string getName() const;

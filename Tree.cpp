@@ -26,4 +26,12 @@ treeRoot->setName(&nameOfNewNode);
 
 delete treeRoot;
 
+/*
+The reason the debugging was printed like that is that the dekonstructor 
+"sorrounds" the tree and every time it goes back to a "higher level" the last node
+he was on gets deletet. 
+
+To better understand what i mean by that, check out the deconstructor.jpg in the source folder. 
+*/
+
 }
