@@ -108,8 +108,8 @@ Node* Node::getChild(int childIndex){
     {
         #ifdef DEBUG_MORE
         cout << "ChildIndex out of range!" << endl;
-        //throw "ChildIndex out of range!";
         #endif
+        throw "Index of Child out of range!";
         return NULL;
     }else{
         #ifdef DEBUG_MORE
@@ -123,4 +123,21 @@ Node* Node::getChild(int childIndex){
 //addChild
 void Node::addChild(Node* newChild){
     this->listOfChildren.push_back(newChild);
+}
+//Create a full tree
+Node* Node::createCompleteTree(int nrChildNodes,int treeDepth){
+    
+    if(nrChildNodes <=0 || treeDepth <=0){
+        throw "Index out of Bounce: Cant have 0 or less childnodes/treedepth!";
+    }else if (treeDepth >1){
+        cout <<"Entering: " << this->getName() << endl;
+            for(int j = 0; j<nrChildNodes; j++){
+                Node * newNode =new Node();
+                cout <<"Creating Child For: " << this->getName() << endl;
+                this->addChild(Node::createCompleteTree(nrChildNodes ,treeDepth-1));
+                
+            }
+        cout <<"Leaving: " << this->getName() << endl;
+    }
+    return this;
 }

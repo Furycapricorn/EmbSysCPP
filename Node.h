@@ -21,4 +21,5 @@ class Node{
     Node* getChild(int childIndex);
     void setName(std::string* newNamePointer);
     void addChild(Node* childNode);
+    Node* createCompleteTree(int nrChildNodes,int treeDepth);
 };
