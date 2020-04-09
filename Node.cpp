@@ -1,7 +1,7 @@
 /** 
  * @file    Node.cpp
  * @author  Maximilian Hartmann 
- * @date    0.0.1
+ * @date    0.2.1
  * @brief   A class that functions as a Tree node
  * 
  * const: You can use const to lock the type and value of a variable
@@ -19,7 +19,13 @@ using namespace std;
 
 //this is needed to keep track of the nodes and is used for the searching
 int Node::nodeId =0;
-
+/**
+ * \brief standard constructor
+ * 
+ *      This is the standard constructor for a node.
+ *      It works without any parameters and automaticly generates 
+ *      a name from the ID
+*/
 Node::Node(){
     Node::nodeId++;
     std::stringstream generatedName;
@@ -29,6 +35,14 @@ Node::Node(){
     cout << "New Node Created: " << this->nodeName << endl;
     #endif
 }
+/**
+ * \brief Constructor with Name
+ *      
+ *      Constructor that construcs a node with a custom name.
+ * 
+ * \param constructString Custom name of the Node
+ * 
+*/
 Node::Node(const std::string* constructString){
     Node::nodeId++;
     Node::nodeName= *constructString;
@@ -36,6 +50,12 @@ Node::Node(const std::string* constructString){
     cout << "New Node Created: " << this->nodeName << endl;
     #endif
 }
+/**
+ * \brief deconstructor for the nodes
+ * 
+ *      Deletes the node and all children.
+ * 
+*/
 Node::~Node(){
     #ifdef DEBUG
     cout << "Enter ~Node() of " << this->nodeName <<  endl;
@@ -67,18 +87,35 @@ Node::~Node(){
     #endif
 
 }
-//
+/**
+ * \brief method that returns the nodeName
+ * 
+ * \return returns the name of the node
+ */
 std::string Node::getName() const{
     return this->nodeName;
 }
-//
+/**
+ * \brief method that sets the name
+ * 
+ * \param newNamePointer pointer to the new name
+ */
+
 void Node::setName(std::string* newNamePointer){
     this-> nodeName = *newNamePointer;
     #ifdef DEBUG_MORE
     cout << this->nodeName <<endl;
     #endif
 }
-//  NEEDS TO COUNT THE REAL CHILDREN AND NOT JUST THE SIZE OF THE VECTOR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+/**
+ * \brief Counts the Children of a node
+ * 
+ *      This methode counts the number of child nodes.
+ *      Its designed to ignore deleted childs and 
+ *      only only pickup active ones. (so its more than "vector.size()")
+ * 
+ * \return number of children
+ */
 int Node::getNumberOfChildren(){
     int c=0;
     #ifdef DEBUG_MORE
@@ -102,7 +139,16 @@ int Node::getNumberOfChildren(){
     #endif
     return c;
 }
-//
+/**
+ * \brief returns the x number child node
+ * 
+ *      Finds the child with the given index. 
+ *      Throws an exception if the index is invalid.
+ * 
+ * \param childIndex index of the child to return 
+ * 
+ * \return returns a pointer to ther searched child
+ */
 Node* Node::getChild(int childIndex){
     int i = this->getNumberOfChildren();
     if (i< childIndex || childIndex < 0 || i==0)
@@ -121,11 +167,24 @@ Node* Node::getChild(int childIndex){
         return this->listOfChildren[childIndex];
     }
 }
-//addChild
+/**
+ * \brief Adds a child to the node
+ * 
+ * \param newChild a pointer to the child to add
+ */
 void Node::addChild(Node* newChild){
     this->listOfChildren.push_back(newChild);
 }
-//Create a full tree
+/**
+ * \brief Generated a treestructure
+ * 
+ *      Generates a tree with a given depth and branch count.
+ * 
+ * \param nrChildNodes Number of children for every node
+ * \param treeDepth terminates the number of levels for the tree
+ * 
+ * \return the created root
+ */
 Node* Node::createCompleteTree(int nrChildNodes,int treeDepth){
     
     if(nrChildNodes <=0 || treeDepth <=0){
